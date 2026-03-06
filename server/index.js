@@ -105,6 +105,39 @@ app.post(
   }
 );
 
+// ROTA PARA DELETAR PRODUTO (MongoDB + Cloudinary)
+app.delete('/api/products/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Produto não encontrado' });
+    }
+
+    // Extrair Public ID da Cloudinary da URL da imagem
+    // Exemplo URL: https://res.cloudinary.com/demo/image/upload/v12345/wedding-gifts/gift-123.png
+    // O Public ID esperado pelo Cloudinary é 'wedding-gifts/gift-123'
+    const imageUrl = product.image;
+    const parts = imageUrl.split('/');
+    const folderAndFile = parts.slice(-2).join('/'); // Pega 'wedding-gifts/gift-123.png'
+    const publicId = folderAndFile.split('.')[0]; // Pega 'wedding-gifts/gift-123'
+
+    console.log('Tentando deletar do Cloudinary:', publicId);
+
+    // Deletar do Cloudinary
+    await cloudinary.uploader.destroy(publicId);
+
+    // Deletar do MongoDB
+    await Product.findByIdAndDelete(id);
+
+    res.json({ message: 'Produto deletado com sucesso do banco e da Cloudinary!' });
+  } catch (err) {
+    console.error('Erro ao deletar produto:', err);
+    res.status(500).json({ message: 'Erro ao deletar o produto', error: err.message });
+  }
+});
+
 // Admin Login Route (Simples)
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body;

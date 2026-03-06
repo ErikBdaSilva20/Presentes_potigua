@@ -154,3 +154,33 @@ export const Button = styled.div`
     transform: translateY(-2px);
   }
 `;
+
+export const DeleteButton = styled.button`
+  width: 100%;
+  padding: 10px;
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: ${({ theme }) => theme.radius.md};
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover {
+    background: #e60000;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(255, 77, 77, 0.3);
+  }
+
+  svg {
+    font-size: 1rem;
+  }
+`;

@@ -5,8 +5,9 @@ import { EmptyState, GridContainer } from './styles';
  * Componente PresentsArray — Galeria de Itens
  *
  * @param {Array} products - Lista de produtos para renderizar.
+ * @param {function} onDelete - Função para remover do estado local.
  */
-const PresentsArray = ({ products = [] }) => {
+const PresentsArray = ({ products = [], onDelete }) => {
   if (!products || products.length === 0) {
     return (
       <EmptyState>
@@ -20,11 +21,13 @@ const PresentsArray = ({ products = [] }) => {
       {products.map((produto, index) => (
         <CardProduto
           key={produto._id || produto.id || index}
+          id={produto._id}
           imagem={produto.image}
           titulo={produto.name}
           descricao={produto.description}
           link={produto.link}
           delay={index}
+          onDelete={onDelete}
         />
       ))}
     </GridContainer>

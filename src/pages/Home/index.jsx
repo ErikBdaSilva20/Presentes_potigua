@@ -34,6 +34,10 @@ const Home = () => {
     fetchProducts();
   }, []);
 
+  const handleDeleteProduct = (id) => {
+    setProducts((prev) => prev.filter((p) => p._id !== id));
+  };
+
   return (
     <LayoutWrapper>
       <Header
@@ -53,7 +57,7 @@ const Home = () => {
             Carregando presentes especiais...
           </p>
         ) : (
-          <PresentsArray products={products} />
+          <PresentsArray products={products} onDelete={handleDeleteProduct} />
         )}
       </MainContent>
 

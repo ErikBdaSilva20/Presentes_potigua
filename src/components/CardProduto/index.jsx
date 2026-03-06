@@ -1,4 +1,6 @@
+import { FiTrash2 } from 'react-icons/fi';
 import { Si1Dot1Dot1Dot1 } from 'react-icons/si';
+import api from '../../services/api';
 
 import {
   ActionWrapper,
@@ -7,6 +9,7 @@ import {
   CardContainer,
   Category,
   Content,
+  DeleteButton,
   Description,
   ImageContainer,
   ProductImage,
@@ -21,26 +24,58 @@ import {
  * @param {string} descricao - Descrição detalhada.
  * @param {string} link - Link Shopee.
  * @param {number} delay - Index para animação escalonada.
+ * @param {string} id - ID do produto no MongoDB.
+ * @param {function} onDelete - Callback para atualizar a lista após deletar.
  */
-const CardProduto = ({ imagem, titulo, descricao, link, delay = 0 }) => {
+const CardProduto = ({ id, imagem, titulo, descricao, link, delay = 0, onDelete }) => {
+  const isAdmin = localStorage.getItem('admin_token') === 'true';
+
+  const handleDelete = async (e) => {
+    e.preventDefault(); // Previne o clique no link
+    e.stopPropagation();
+
+    if (
+      window.confirm(
+        `Tem certeza que deseja deletar "${titulo}"? Esta ação removerá a imagem da Cloudinary também.`
+      )
+    ) {
+      try {
+        await api.delete(`/products/${id}`);
+        if (onDelete) onDelete(id);
+        alert('Produto removido com sucesso!');
+      } catch (err) {
+        console.error('Erro ao deletar produto:', err);
+        alert('Erro ao deletar produto. Tente novamente.');
+      }
+    }
+  };
+
   return (
-    <CardContainer href={link} target="_blank" rel="noopener noreferrer" $delay={delay}>
-      <ImageContainer>
-        <Badge>Novo</Badge>
-        <ProductImage src={imagem} alt={titulo} loading="lazy" />
-      </ImageContainer>
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <CardContainer href={link} target="_blank" rel="noopener noreferrer" $delay={delay}>
+        <ImageContainer>
+          <Badge>Novo</Badge>
+          <ProductImage src={imagem} alt={titulo} loading="lazy" />
+        </ImageContainer>
 
-      <Content>
-        <Category>Presente de Casamento</Category>
-        <Title>{titulo}</Title>
-        <Description>{descricao}</Description>
+        <Content>
+          <Category>Presente de Casamento</Category>
+          <Title>{titulo}</Title>
+          <Description>{descricao}</Description>
 
-        <ActionWrapper>
-          <Si1Dot1Dot1Dot1 />
-          <Button>Presentear</Button>
-        </ActionWrapper>
-      </Content>
-    </CardContainer>
+          <ActionWrapper>
+            <Si1Dot1Dot1Dot1 />
+            <Button>Presentear</Button>
+          </ActionWrapper>
+        </Content>
+      </CardContainer>
+
+      {isAdmin && id && (
+        <DeleteButton onClick={handleDelete} title="Excluir Produto">
+          <FiTrash2 /> Deletar Presente
+        </DeleteButton>
+      )}
+    </div>
   );
 };
 
