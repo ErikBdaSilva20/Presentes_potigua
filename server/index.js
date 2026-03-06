@@ -170,7 +170,7 @@ app.use((err, req, res, next) => {
 
 // Basic health check route
 app.get('/', (req, res) => {
-  res.send('API de Presentes Rodando! 🚀');
+  res.send('API de Presentes Rodando! (Build: 2026-03-06) 🚀');
 });
 
 const PORT = process.env.PORT || 5000;
