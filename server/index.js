@@ -1,4 +1,5 @@
-// Verifique isso na produção.
+// DEPLOY RENDER: Verifique se as variáveis de ambiente estão configuradas no painel do Render.
+// Você precisará de MONGODB_URI, CLOUDINARY_*, ADMIN_USER, ADMIN_PASS.
 import { v2 as cloudinary } from 'cloudinary';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -14,7 +15,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// MongoDB Connection
+// DEPLOY MONGODB: Certifique-se de que o MONGODB_URI no Render seja o seu link do MongoDB Atlas.
+// Lembre-se de liberar o acesso de IP (0.0.0.0/0) no painel do MongoDB Atlas.
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log('Connected to MongoDB'))
@@ -122,10 +124,22 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Basic health check route
+app.get('/', (req, res) => {
+  res.send('API de Presentes Rodando! 🚀');
+});
+
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.group('🚀 Servidor Iniciado');
   console.log(`Porta: ${PORT}`);
-  console.log(`Cloudinary Cloud: ${process.env.CLOUDINARY_CLOUD_NAME}`);
+  console.log(`Ambiente: ${process.env.NODE_ENV || 'development'}`);
+
+  // Log check for required env vars (without showing secrets)
+  const requiredVars = ['MONGODB_URI', 'CLOUDINARY_CLOUD_NAME', 'ADMIN_USER'];
+  requiredVars.forEach((v) => {
+    console.log(`${v}: ${process.env[v] ? '✅ Configurado' : '❌ AUSENTE'}`);
+  });
+
   console.groupEnd();
 });

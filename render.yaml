@@ -1,0 +1,26 @@
+services:
+  # Backend (Node.js)
+  - type: web
+    name: presentes-casamento-api
+    runtime: node
+    plan: free
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: NODE_VERSION
+        value: 20
+      - key: MONGODB_URI
+        sync: false # Configurar no painel do Render
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: ADMIN_USER
+        sync: false
+      - key: ADMIN_PASS
+        sync: false
