@@ -3,7 +3,6 @@ import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import PresentsArray from '../../components/PresentsArray';
 import api from '../../services/api';
-import { products as staticProducts } from '../../utils/products';
 import { LayoutWrapper, MainContent, SectionTitle } from './styles';
 
 /**
@@ -16,16 +15,13 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await api.get('/products');
-        // Se houver produtos no banco, usa eles. Se não, mostra os estáticos como exemplo inicial.
-        if (response.data && response.data.length > 0) {
+        const response = await api.get('/api/products');
+        // Se houver produtos no banco, usa eles.
+        if (response.data) {
           setProducts(response.data);
-        } else {
-          setProducts(staticProducts);
         }
       } catch (err) {
-        console.error('API Error, falling back to static data:', err);
-        setProducts(staticProducts);
+        console.error('API Error:', err);
       } finally {
         setLoading(false);
       }

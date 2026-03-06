@@ -2,8 +2,16 @@
 // O valor deve ser a URL gerada pelo Render (ex: https://seu-app.onrender.com/api)
 import axios from 'axios';
 
+const getBaseURL = () => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl) return 'http://localhost:5000';
+
+  // Remove trailing slash and /api if present to keep it base
+  return envUrl.replace(/\/$/, '').replace(/\/api$/, '');
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL: getBaseURL(),
 });
 
 export default api;

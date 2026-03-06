@@ -109,31 +109,42 @@ app.post(
 app.delete('/api/products/:id', async (req, res) => {
   try {
     const { id } = req.params;
+    console.log('--- Iniciando processo de deleção --- ID:', id);
+
     const product = await Product.findById(id);
 
     if (!product) {
+      console.log('⚠️ Produto não encontrado no banco de dados');
       return res.status(404).json({ message: 'Produto não encontrado' });
     }
 
-    // Extrair Public ID da Cloudinary da URL da imagem
-    // Exemplo URL: https://res.cloudinary.com/demo/image/upload/v12345/wedding-gifts/gift-123.png
-    // O Public ID esperado pelo Cloudinary é 'wedding-gifts/gift-123'
-    const imageUrl = product.image;
-    const parts = imageUrl.split('/');
-    const folderAndFile = parts.slice(-2).join('/'); // Pega 'wedding-gifts/gift-123.png'
-    const publicId = folderAndFile.split('.')[0]; // Pega 'wedding-gifts/gift-123'
+    // Tentar deletar do Cloudinary apenas se for uma URL da Cloudinary
+    try {
+      const imageUrl = product.image;
+      if (imageUrl && imageUrl.includes('cloudinary.com')) {
+        const parts = imageUrl.split('/');
+        const folderAndFile = parts.slice(-2).join('/'); // Pega 'wedding-gifts/gift-123.png'
+        const publicId = folderAndFile.split('.')[0]; // Pega 'wedding-gifts/gift-123'
 
-    console.log('Tentando deletar do Cloudinary:', publicId);
-
-    // Deletar do Cloudinary
-    await cloudinary.uploader.destroy(publicId);
+        console.log('🗑️ Tentando deletar da Cloudinary:', publicId);
+        await cloudinary.uploader.destroy(publicId);
+      } else {
+        console.log('ℹ️ Imagem não é da Cloudinary, removendo apenas do banco.');
+      }
+    } catch (cloudErr) {
+      console.error(
+        '⚠️ Erro ao tentar remover da Cloudinary (continuando deleção no banco):',
+        cloudErr.message
+      );
+    }
 
     // Deletar do MongoDB
     await Product.findByIdAndDelete(id);
+    console.log('✅ Produto removido do MongoDB com sucesso!');
 
-    res.json({ message: 'Produto deletado com sucesso do banco e da Cloudinary!' });
+    res.json({ message: 'Produto deletado com sucesso!' });
   } catch (err) {
-    console.error('Erro ao deletar produto:', err);
+    console.error('❌ Erro ao deletar produto:', err);
     res.status(500).json({ message: 'Erro ao deletar o produto', error: err.message });
   }
 });

@@ -40,7 +40,7 @@ const CardProduto = ({ id, imagem, titulo, descricao, link, delay = 0, onDelete 
       )
     ) {
       try {
-        await api.delete(`/products/${id}`);
+        await api.delete(`/api/products/${id}`);
         if (onDelete) onDelete(id);
         alert('Produto removido com sucesso!');
       } catch (err) {

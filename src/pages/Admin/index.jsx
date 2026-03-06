@@ -37,7 +37,7 @@ const Admin = () => {
     formData.append('image', image);
 
     try {
-      await api.post('/products', formData, {
+      await api.post('/api/products', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setSuccess(true);
