@@ -12,7 +12,7 @@ const Footer = ({ message = 'Obrigado por celebrar esse momento conosco!' }) => 
 
       <ThankYouText>{message}</ThankYouText>
 
-      <CoupleNames>Com amor, Amanda & Marcos</CoupleNames>
+      <CoupleNames>Com amor, Romeu & Julieta</CoupleNames>
 
       <Copyright>
         <span>© 2026 Design Floral</span>

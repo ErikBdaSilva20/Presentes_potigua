@@ -48,14 +48,14 @@ const Header = ({
         <Logo onClick={() => navigate('/')} style={{ cursor: 'pointer' }}>
           <RingIcon>💍</RingIcon>
           <LogoText>
-            <LogoBrand>Amanda & Marcos</LogoBrand>
+            <LogoBrand>Romeu & Julieta</LogoBrand>
             <LogoSub>Casamento • 2026</LogoSub>
           </LogoText>
         </Logo>
 
         <NavActions>
           <NavLinks>
-            <NavLink>Ruiva e Marco</NavLink>
+            <NavLink>Romeu e Julieta</NavLink>
           </NavLinks>
           <Login onClick={() => navigate(isLoggedIn ? '/admin' : '/login')}>
             {isLoggedIn ? 'Painel Admin' : 'Login'}
