@@ -1,5 +1,4 @@
 import { FiTrash2 } from 'react-icons/fi';
-import { Si1Dot1Dot1Dot1 } from 'react-icons/si';
 import api from '../../services/api';
 
 import {
@@ -64,7 +63,6 @@ const CardProduto = ({ id, imagem, titulo, descricao, link, delay = 0, onDelete 
           <Description>{descricao}</Description>
 
           <ActionWrapper>
-            <Si1Dot1Dot1Dot1 />
             <Button>Presentear</Button>
           </ActionWrapper>
         </Content>
