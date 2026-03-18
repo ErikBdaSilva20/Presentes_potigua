@@ -1,6 +1,6 @@
-# 💍 Wedding Registry System - Romeu e Julieta
+# 💍 Wedding Registry System - Amanda e Marcos
 
-Este é um projeto **Full-stack** desenvolvido para gerenciar a lista de presentes de casamento de **Romeu e Julieta**. A aplicação oferece uma interface elegante para os convidados e um painel administrativo seguro para a gestão do catálogo.
+Este é um projeto **Full-stack** desenvolvido para gerenciar a lista de presentes de casamento de **Amanda e Marcos**. A aplicação oferece uma interface elegante para os convidados e um painel administrativo seguro para a gestão do catálogo.
 
 ---
 
@@ -90,8 +90,8 @@ ADMIN_PASS=sua_senha
 
 ## 💡 Ideia do Projeto
 
-A ideia central foi criar uma solução personalizada e eficiente que centralizasse os desejos do casal **Romeu e Julieta**, facilitando a jornada dos convidados ao redirecioná-los para marketplaces conhecidos, enquanto mantinha um controle total sobre o catálogo de presentes de forma simplificada e profissional.
+A ideia central foi criar uma solução personalizada e eficiente que centralizasse os desejos do casal **Amanda e Marcos**, facilitando a jornada dos convidados ao redirecioná-los para marketplaces conhecidos, enquanto mantinha um controle total sobre o catálogo de presentes de forma simplificada e profissional.
 
 ---
 
-Desenvolvido com ❤️ para o casamento de **Romeu e Julieta**.
+Desenvolvido com ❤️ para o casamento de **Amanda e Marcos**.
