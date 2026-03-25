@@ -11,6 +11,7 @@ import {
   DeleteButton,
   Description,
   ImageContainer,
+  Price,
   ProductImage,
   Title,
 } from './styles.js';
@@ -28,6 +29,20 @@ import {
  */
 const CardProduto = ({ id, imagem, titulo, descricao, link, delay = 0, onDelete, valor }) => {
   const isAdmin = localStorage.getItem('admin_token') === 'true';
+
+  const formatPrice = (val) => {
+    if (!val) return null;
+    // Se o valor for puramente números, tratamos como centavos.
+    // Ex: 2555 -> 25.55
+    const numericValue = val.replace(/\D/g, '');
+    if (!numericValue) return val;
+
+    const valueInReais = parseFloat(numericValue) / 100;
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(valueInReais);
+  };
 
   const handleDelete = async (e) => {
     e.preventDefault(); // Previne o clique no link
@@ -59,10 +74,8 @@ const CardProduto = ({ id, imagem, titulo, descricao, link, delay = 0, onDelete,
 
         <Content>
           <Category>Presente de Casamento</Category>
-          <Title>
-            {titulo}
-            {valor && ` por ${valor}`}
-          </Title>
+          <Title>{titulo}</Title>
+          {valor && <Price>{formatPrice(valor)}</Price>}
           <Description>{descricao}</Description>
 
           <ActionWrapper>

@@ -107,10 +107,18 @@ export const Category = styled.span`
 export const Title = styled.h3`
   font-size: 1.5rem;
   color: ${({ theme }) => theme.colors.textPrimary};
-  margin-bottom: 12px;
+  margin-bottom: 2px;
   font-family: ${({ theme }) => theme.fonts.heading};
   font-weight: 600;
   line-height: 1.2;
+`;
+
+export const Price = styled.span`
+  font-size: 1.1rem;
+  color: ${({ theme }) => theme.colors.primary};
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: block;
 `;
 
 export const Description = styled.p`
