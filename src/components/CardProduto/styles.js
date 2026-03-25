@@ -114,9 +114,9 @@ export const Title = styled.h3`
 `;
 
 export const Price = styled.span`
-  font-size: 1.1rem;
-  color: ${({ theme }) => theme.colors.primary};
-  font-weight: 700;
+  font-size: 1.2rem;
+  color: #ffb800; /* Vibrant Yellow/Orange */
+  font-weight: 800;
   margin-bottom: 12px;
   display: block;
 `;
