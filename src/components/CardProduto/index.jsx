@@ -26,7 +26,7 @@ import {
  * @param {string} id - ID do produto no MongoDB.
  * @param {function} onDelete - Callback para atualizar a lista após deletar.
  */
-const CardProduto = ({ id, imagem, titulo, descricao, link, delay = 0, onDelete }) => {
+const CardProduto = ({ id, imagem, titulo, descricao, link, delay = 0, onDelete, valor }) => {
   const isAdmin = localStorage.getItem('admin_token') === 'true';
 
   const handleDelete = async (e) => {
@@ -59,7 +59,10 @@ const CardProduto = ({ id, imagem, titulo, descricao, link, delay = 0, onDelete 
 
         <Content>
           <Category>Presente de Casamento</Category>
-          <Title>{titulo}</Title>
+          <Title>
+            {titulo}
+            {valor && ` por ${valor}`}
+          </Title>
           <Description>{descricao}</Description>
 
           <ActionWrapper>

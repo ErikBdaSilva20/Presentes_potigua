@@ -46,3 +46,54 @@ export const EmptyState = styled.div`
     letter-spacing: 1px;
   }
 `;
+
+export const CarouselContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+export const ControlsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${({ theme }) => theme.spacing.lg};
+  margin-top: ${({ theme }) => theme.spacing.xl};
+`;
+
+export const ArrowButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.bgDeep};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  color: ${({ theme }) => theme.colors.primary};
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover:not(:disabled) {
+    background: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.bgDeep};
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    display: none;
+  }
+`;
+
+export const PageIndicator = styled.div`
+  font-family: ${({ theme }) => theme.fonts.heading};
+  font-size: 1.2rem;
+  color: ${({ theme }) => theme.colors.text};
+  min-width: 80px;
+  text-align: center;
+`;

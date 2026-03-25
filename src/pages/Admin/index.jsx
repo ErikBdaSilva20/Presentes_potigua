@@ -7,6 +7,7 @@ import api from '../../services/api';
 const Admin = () => {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
+  const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,6 +34,7 @@ const Admin = () => {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('link', link);
+    formData.append('price', price);
     formData.append('description', description);
     formData.append('image', image);
 
@@ -43,6 +45,7 @@ const Admin = () => {
       setSuccess(true);
       setName('');
       setLink('');
+      setPrice('');
       setDescription('');
       setImage(null);
       // Reset file input manually if needed
@@ -102,6 +105,16 @@ const Admin = () => {
                 onChange={(e) => setLink(e.target.value)}
                 placeholder="https://shopee.com.br/..."
                 required
+              />
+            </InputGroup>
+
+            <InputGroup style={{ gridColumn: '1 / -1' }}>
+              <Label>Valor do Produto (Opcional)</Label>
+              <Input
+                type="text"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder="Ex: 69,99"
               />
             </InputGroup>
 

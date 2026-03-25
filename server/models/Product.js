@@ -16,6 +16,9 @@ const ProductSchema = new mongoose.Schema({
   description: {
     type: String,
   },
+  price: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

@@ -76,7 +76,7 @@ app.post(
   },
   async (req, res) => {
     try {
-      const { name, link, description } = req.body;
+      const { name, link, description, price } = req.body;
 
       if (!req.file) {
         return res.status(400).json({ message: 'A imagem é obrigatória' });
@@ -89,6 +89,7 @@ app.post(
         name,
         link,
         description,
+        price,
         image: imageUrl,
       });
 
